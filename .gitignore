@@ -1,0 +1,8 @@
+compiled/*
+*.swp
+*.zo
+*.dep
+*.so
+*.o
+.hg
+.hgignore
