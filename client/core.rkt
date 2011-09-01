@@ -1,6 +1,6 @@
 #lang racket
 
-(require openssl "reader.rkt")
+(require openssl "../reader.rkt")
 
 (struct irc-connection
   (receiver
@@ -193,4 +193,4 @@
       (let ([handlers (irc-connection-message-handlers connection)])
         (set-irc-connection-message-handlers! connection (remq proc handlers)))))))
      
-(provide (all-defined-out) (all-from-out "reader.rkt"))
+(provide (all-defined-out) (all-from-out "../reader.rkt"))

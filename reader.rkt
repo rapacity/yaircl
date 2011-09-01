@@ -2,15 +2,13 @@
 
 (require racket/match racket/date "codes.rkt")
 
-(struct irc-server (name) #:transparent)
-(struct irc-client (nick user host) #:transparent)
 (struct irc-message (timestamp sender command arguments) #:transparent)
 
 (define (parse-prefix str)
   (match str
     [(regexp #rx"^([^!]+)!([^@]+)@(.+)$" (list _ nick user host))
-     (irc-client nick user host)]
-    [else (irc-server str)]))
+     (list nick user host)]
+    [else (list str)]))
 
 (define (parse-command str)
   (let ([sym (string->symbol (string-downcase str))])
@@ -34,12 +32,16 @@
       (current-date)
       (if prefix (parse-prefix prefix) prefix)
       (parse-command command)
-      (parse-arguments args))]))
+      (parse-arguments args))]
+    [else (error (format "reader error '~a'" str))]))
+
+(require srfi/13)
 
 (define (irc-read port)
   (let ([msg (read-line port 'any)])
     (if (eof-object? msg) msg
-        (parse-message msg))))
-
+        (if (string=? "" (string-trim msg)) (irc-read port)
+            (parse-message msg)))))
+ 
 (provide (except-out (all-defined-out) parse-prefix parse-command parse-arguments parse-message)
          )

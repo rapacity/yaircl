@@ -1,1 +1,15 @@
-a basic irc client libray
+yet another irc library
+
+the aim of this library is to be a complete irc library having client, server, dcc support
+
+the library is currently incomplete
+
+for dcc
+(require yaircl/dcc)
+
+for the client
+(require yaircl/client)
+
+for the server
+(require yaircl/server)
+
