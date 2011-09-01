@@ -2,7 +2,7 @@ yet another irc library
 
 the aim of this library is to be a complete irc library having client, server, dcc support
 
-the library is currently incomplete
+the library is currently incomplete and not properly compliant or secure, use at your own peril
 
 for dcc
 (require yaircl/dcc)
